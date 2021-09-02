@@ -3,9 +3,13 @@ package GDLauncherOptiFineInstaller;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GDLOptiFineInstaller {
 
+    public static String OPTIFINE_VERS = "";
     public static String OPTIFINE_PATH = "";
     public static String GDL_USER_PATH = "";
     public static String INSTANCE_PATH = "";
@@ -103,6 +107,12 @@ public class GDLOptiFineInstaller {
         c.gridy = 4;
         panel.add(btconfirm, c);
 
+        JLabel lbStatus = new JLabel();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 5;
+        panel.add(lbStatus, c);
+
         btSelOptJar.addActionListener(actionEvent -> {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.addChoosableFileFilter(new JarFilter());
@@ -154,9 +164,27 @@ public class GDLOptiFineInstaller {
         });
 
         btconfirm.addActionListener(actionEvent -> {
-            if (!isOptiFineInLibraries())
+            if (!Objects.equals(OPTIFINE_VERS, "") && !Objects.equals(OPTIFINE_PATH, "") && !Objects.equals(GDL_USER_PATH, "") && !Objects.equals(INSTANCE_PATH, ""))
             {
-                copyOptiFineToLibraries();
+                OPTIFINE_VERS = tfOrgOpt.getText();
+                System.out.println(OPTIFINE_VERS);
+                if (!isOptiFineInLibraries())
+                {
+                    copyOptiFineToLibraries();
+                }
+            }
+            else
+            {
+
+                Timer timer = new Timer();
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        btconfirm.setText("Install!");
+                    }
+                };
+                btconfirm.setText("Please selecet / fill everything!");
+                timer.schedule(task, 3000);
             }
         });
 
@@ -166,14 +194,11 @@ public class GDLOptiFineInstaller {
     public static boolean isOptiFineInLibraries()
     {
         String pS = System.getProperty("path.seperator");
-        String OptiFineVer;
         File optifine = new File(OPTIFINE_PATH);
-
-        OptiFineVer = optifine.getName().substring(0, optifine.getName().indexOf('_'));
 
         if (System.getProperty("os.name").contains("Windows"))
         {
-            File f = new File(System.getProperty("user.home") + "\\AppData\\.minecraft\\libraries\\optifine\\OptiFine\\" + OptiFineVer + "");
+            File f = new File(System.getProperty("user.home") + "\\AppData\\.minecraft\\libraries\\optifine\\OptiFine\\" + OPTIFINE_VERS);
             return true;
         }
         else if (System.getProperty("os.name").contains("Mac OS X"))
