@@ -12,6 +12,6 @@ What you still need to do:
 4. type the OptiFine Version into the TextField
 5. select the extracted OptiFine.jar File
 6. select your GDLauncher User Data Path
-7. Press Install ; )
+7. Press Install 😉
 
 You can find the Location of your GDLauncher User Data Path in GDLauncher's Settings
