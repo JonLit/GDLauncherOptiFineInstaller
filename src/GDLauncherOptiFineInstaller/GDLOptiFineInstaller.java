@@ -3,8 +3,11 @@ package GDLauncherOptiFineInstaller;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class GDLOptiFineInstaller {
 
@@ -36,7 +39,6 @@ public class GDLOptiFineInstaller {
 
         JTextField tfOrgOpt = new JTextField("e.g. " + '"' + "1.17.1_HD_U_G9" + '"');
         c.fill = GridBagConstraints.HORIZONTAL;
-        //c.gridwidth = 2;
         c.gridx = 1;
         c.gridy = 0;
         panel.add(tfOrgOpt, c);
@@ -189,7 +191,7 @@ public class GDLOptiFineInstaller {
                         btconfirm.setText("Install!");
                     }
                 };
-                btconfirm.setText("Please selecet / fill everything!");
+                btconfirm.setText("Please select / fill everything!");
                 timer.schedule(task, 3000);
             }
         });
@@ -239,11 +241,59 @@ public class GDLOptiFineInstaller {
 
     public static void copyOptiFineToMinecraftLibraries()
     {
-
+        if (System.getProperty("os.name").contains("Windows"))
+        {
+            try {
+                Files.copy(new File(OPTIFINE_PATH).toPath(), new File(System.getProperty("user.home") + "\\AppData\\.minecraft\\libraries\\optifine\\OptiFine\\" + OPTIFINE_VERS + "//" + OPTIFINE_VERS + ".jar").toPath(), REPLACE_EXISTING);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if (System.getProperty("os.name").contains("Mac OS X"))
+        {
+            try {
+                Files.copy(new File(OPTIFINE_PATH).toPath(), new File(System.getProperty("user.home") + "//Library//Application\\ Support//minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_VERS + ".jar").toPath(), REPLACE_EXISTING);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if (System.getProperty("os.name").contains("Linux"))
+        {
+            try {
+                Files.copy(new File(OPTIFINE_PATH).toPath(), new File(System.getProperty("user.home") + "//.minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_VERS + ".jar").toPath(), REPLACE_EXISTING);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void copyOptiFineToGDLLibraries()
     {
-
+        if (System.getProperty("os.name").contains("Windows"))
+        {
+            try {
+                Files.copy(new File(OPTIFINE_PATH).toPath(), new File(GDL_USER_PATH + "\\datastore\\libraries\\optifine\\OptiFine\\" + OPTIFINE_VERS + "//" + OPTIFINE_VERS + ".jar").toPath(), REPLACE_EXISTING);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if (System.getProperty("os.name").contains("Mac OS X") || System.getProperty("os.name").contains("Linux"))
+        {
+            try {
+                Files.copy(new File(OPTIFINE_PATH).toPath(), new File(GDL_USER_PATH + "//datastore//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_VERS + ".jar").toPath(), REPLACE_EXISTING);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }
