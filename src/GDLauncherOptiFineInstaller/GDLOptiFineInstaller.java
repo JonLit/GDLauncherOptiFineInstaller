@@ -2,6 +2,8 @@ package GDLauncherOptiFineInstaller;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 public class GDLOptiFineInstaller {
@@ -101,11 +103,39 @@ public class GDLOptiFineInstaller {
                 File file = fileChooser.getSelectedFile();
                 lbSelOptJar.setText(file.getName());
                 GDLOptiFineInstaller.OPTIFINE_PATH = file.getAbsolutePath();
-                System.out.println("OptiFine.jar PATH" + GDLOptiFineInstaller.OPTIFINE_PATH);
+                System.out.println("OptiFine.jar PATH " + GDLOptiFineInstaller.OPTIFINE_PATH);
             }
             else
             {
                 lbSelOptJar.setText("No File selected!");
+            }
+        });
+
+        btGDLUserDataPath.addActionListener(actionEvent -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+            int option = fileChooser.showOpenDialog(frame);
+            if (option == JFileChooser.APPROVE_OPTION)
+            {
+                File file = fileChooser.getSelectedFile();
+                lbSelGDLUserDataPath.setText(file.getName());
+                GDLOptiFineInstaller.GDL_USER_PATH = file.getAbsolutePath();
+                System.out.println("GDL User Data Path " + GDLOptiFineInstaller.GDL_USER_PATH);
+            }
+        });
+
+        btInstPath.addActionListener(actionEvent -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+            int option = fileChooser.showOpenDialog(frame);
+            if (option == JFileChooser.APPROVE_OPTION)
+            {
+                File file = fileChooser.getSelectedFile();
+                lbSelInstPath.setText(file.getName());
+                GDLOptiFineInstaller.INSTANCE_PATH = file.getAbsolutePath();
+                System.out.println("Instance Path " + GDLOptiFineInstaller.INSTANCE_PATH);
             }
         });
 
