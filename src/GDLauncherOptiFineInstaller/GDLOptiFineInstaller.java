@@ -109,10 +109,6 @@ public class GDLOptiFineInstaller {
             }
         });
 
-        btGDLUserDataPath.addActionListener(actionEvent -> {
-            JFileChooser fileChooser = new JFileChooser();
-        });
-
         frame.getContentPane().add(panel, BorderLayout.CENTER);
     }
 }
