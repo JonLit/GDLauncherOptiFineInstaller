@@ -15,11 +15,10 @@ public class GDLOptiFineInstaller {
     public static String OPTIFINE_NAME = "";
     public static String OPTIFINE_PATH = "";
     public static String GDL_USER_PATH = "";
-    public static String INSTANCE_PATH = "";
 
     public static void main(String[] Args)
     {
-        JFrame frame = new JFrame("OptiFine installer for GDLauncher");
+        JFrame frame = new JFrame("OptiFine installer for GDLauncher v.1.0");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         createGUI(frame);
         frame.setSize(650, 180);
@@ -126,12 +125,13 @@ public class GDLOptiFineInstaller {
 
         btconfirm.addActionListener(actionEvent -> {
             OPTIFINE_VERS = tfOrgOpt.getText();
+            OPTIFINE_NAME = "OptiFine-" + OPTIFINE_VERS;
 
             System.out.println(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
             System.out.println("OptiFine Version: \t\t\t" + OPTIFINE_VERS);
             System.out.println("OptiFine Path: \t\t\t\t" + OPTIFINE_PATH);
             System.out.println("GDLauncher User Data Path: \t" + GDL_USER_PATH);
-            System.out.println("Minecraft Instance Path: \t" + INSTANCE_PATH);
+            System.out.println("OptiFine File Name: \t\t\t" + OPTIFINE_NAME);
 
             if (!OPTIFINE_VERS.equals("") && !OPTIFINE_PATH.equals("") && !GDL_USER_PATH.equals("") && isOptiFineInMinecraftLibraries() && isOptiFineInGDLLibraries())
             {
@@ -140,9 +140,6 @@ public class GDLOptiFineInstaller {
             }
             else if (!OPTIFINE_VERS.equals("") && !OPTIFINE_PATH.equals("") && !GDL_USER_PATH.equals(""))
             {
-                OPTIFINE_NAME = "OptiFine-" + OPTIFINE_VERS;
-                System.out.println("OptiFine File Name: \t\t\t" + OPTIFINE_NAME);
-
                 if (!isOptiFineInMinecraftLibraries())
                 {
                     System.out.println("OptiFine not found in .minecraft/libraries/, installing...");
@@ -177,7 +174,7 @@ public class GDLOptiFineInstaller {
                     }
                 };
 
-                timer.schedule(task, 10);
+                timer.schedule(task, 100);
             }
             else
             {
@@ -200,21 +197,39 @@ public class GDLOptiFineInstaller {
     {
         if (System.getProperty("os.name").contains("Windows"))
         {
-            File f = new File(System.getProperty("user.home") + "\\AppData\\.minecraft\\libraries\\optifine\\OptiFine\\" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar");
-            System.out.println("OptiFine detected in .minecraft/libraries");
-            return f.exists() && !f.isDirectory();
+            try {
+                File f = new File(System.getProperty("user.home") + "\\AppData\\.minecraft\\libraries\\optifine\\OptiFine\\" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar");
+                return f.exists() && !f.isDirectory();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+                System.out.println("OptiFine detected in .minecraft/libraries");
+            }
         }
         else if (System.getProperty("os.name").contains("Mac OS X"))
         {
-            File f = new File(System.getProperty("user.home") + "//Library//Application\\ Support//minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar");
-            System.out.println("OptiFine detected in .minecraft/libraries");
-            return f.exists() && !f.isDirectory();
+            try {
+                File f = new File(System.getProperty("user.home") + "//Library//Application\\ Support//minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar");
+                return f.exists() && !f.isDirectory();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+                System.out.println("OptiFine detected in .minecraft/libraries");
+            }
         }
         else if (System.getProperty("os.name").contains("Linux"))
         {
-            File f = new File(System.getProperty("user.home") + "//.minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar");
-            System.out.println("OptiFine detected in .minecraft/libraries");
-            return f.exists() && !f.isDirectory();
+            try {
+                File f = new File(System.getProperty("user.home") + "//.minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar");
+                return f.exists() && !f.isDirectory();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+                System.out.println("OptiFine detected in .minecraft/libraries");
+            }
         }
         return false;
     }
@@ -254,7 +269,7 @@ public class GDLOptiFineInstaller {
         if (System.getProperty("os.name").contains("Windows"))
         {
             try {
-                Files.copy(new File(OPTIFINE_PATH).toPath(), new File(System.getProperty("user.home") + "\\AppData\\.minecraft\\libraries\\optifine\\OptiFine\\" + OPTIFINE_VERS + "//" + OPTIFINE_VERS + ".jar").toPath(), REPLACE_EXISTING);
+                Files.copy(new File(OPTIFINE_PATH).toPath(), new File(System.getProperty("user.home") + "\\AppData\\.minecraft\\libraries\\optifine\\OptiFine\\" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar").toPath(), REPLACE_EXISTING);
                 System.out.println("OptiFine successfully copied to .minecraft/libraries");
                 return true;
             }
@@ -267,7 +282,7 @@ public class GDLOptiFineInstaller {
         else if (System.getProperty("os.name").contains("Mac OS X"))
         {
             try {
-                Files.copy(new File(OPTIFINE_PATH).toPath(), new File(System.getProperty("user.home") + "//Library//Application\\ Support//minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_VERS + ".jar").toPath(), REPLACE_EXISTING);
+                Files.copy(new File(OPTIFINE_PATH).toPath(), new File(System.getProperty("user.home") + "//Library//Application\\ Support//minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar").toPath(), REPLACE_EXISTING);
                 System.out.println("OptiFine successfully copied to .minecraft/libraries");
                 return true;
             }
@@ -280,7 +295,7 @@ public class GDLOptiFineInstaller {
         else if (System.getProperty("os.name").contains("Linux"))
         {
             try {
-                Files.copy(new File(OPTIFINE_PATH).toPath(), new File(System.getProperty("user.home") + "//.minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_VERS + ".jar").toPath(), REPLACE_EXISTING);
+                Files.copy(new File(OPTIFINE_PATH).toPath(), new File(System.getProperty("user.home") + "//.minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar").toPath(), REPLACE_EXISTING);
                 System.out.println("OptiFine successfully copied to .minecraft/libraries");
                 return true;
             }
