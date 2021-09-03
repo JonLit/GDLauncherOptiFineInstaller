@@ -18,7 +18,7 @@ public class GDLOptiFineInstaller {
 
     public static void main(String[] Args)
     {
-        JFrame frame = new JFrame("OptiFine installer for GDLauncher v.1.0");
+        JFrame frame = new JFrame("OptiFine installer for GDLauncher v.1.1");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         createGUI(frame);
         frame.setSize(650, 180);
