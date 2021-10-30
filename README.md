@@ -1,3 +1,6 @@
+# CURRENTLY NOT WORKING! ONLY WORKS FOR LINUX AFTER COMPILING THE LATEST CODE!!!
+The Folders for the .jar File are not being created, ONLY WORKS FOR LINUX AFTER COMPILING THE LATEST CODE!!!
+
 # GDLauncherOptiFineInstaller
 OptiFine Intaller for GDLauncher
 
