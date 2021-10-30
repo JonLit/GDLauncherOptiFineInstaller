@@ -295,6 +295,7 @@ public class GDLOptiFineInstaller {
         else if (System.getProperty("os.name").contains("Linux"))
         {
             try {
+                new File(System.getProperty("user.home") + "//.minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar").mkdirs();
                 Files.copy(new File(OPTIFINE_PATH).toPath(), new File(System.getProperty("user.home") + "//.minecraft//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar").toPath(), REPLACE_EXISTING);
                 System.out.println("OptiFine successfully copied to .minecraft/libraries");
                 return true;
@@ -312,6 +313,7 @@ public class GDLOptiFineInstaller {
     {
         if (System.getProperty("os.name").contains("Windows"))
         {
+            new File(OPTIFINE_PATH).mkdirs();
             try {
                 Files.copy(new File(OPTIFINE_PATH).toPath(), new File(GDL_USER_PATH + "\\datastore\\libraries\\optifine\\OptiFine\\" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar").toPath(), REPLACE_EXISTING);
                 System.out.println("OptiFine successfully copied to GDLauncher datastore");
@@ -326,6 +328,7 @@ public class GDLOptiFineInstaller {
         else if (System.getProperty("os.name").contains("Mac OS X") || System.getProperty("os.name").contains("Linux"))
         {
             try {
+                new File(GDL_USER_PATH + "//datastore//libraries//optifine//OptiFine//" + OPTIFINE_VERS).mkdirs();
                 Files.copy(new File(OPTIFINE_PATH).toPath(), new File(GDL_USER_PATH + "//datastore//libraries//optifine//OptiFine//" + OPTIFINE_VERS + "//" + OPTIFINE_NAME + ".jar").toPath(), REPLACE_EXISTING);
                 System.out.println("OptiFine successfully copied to GDLauncher datastore");
                 return true;
